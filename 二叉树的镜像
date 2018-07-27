@@ -1,0 +1,44 @@
+//递归方法；
+void Mirror(Node* root)
+{
+	if (root == NULL||(root->_left==NULL&&root->_right==NULL))
+	{
+		return;
+	}
+	Node* tmp = root->_left;
+	root->_left = root->_right;
+	root->_right = tmp;
+	if (root->_left)
+	{
+		Mirror(root->_left);
+	}
+	if (root->_right)
+	{
+		Mirror(root->_right);
+	}
+}
+//非递归
+void Mirror_NoR(Node* root)
+{
+	Node* cur = root;
+	stack<Node*> s;
+	s.push(cur);
+	while (cur || !s.empty())
+	{
+		Node* font = s.top();
+		s.pop();
+
+		Node* tmp = font->_left;
+		font->_left = font->_right;
+		font->_right = tmp;
+
+		if (font->_left)
+		{
+			s.push(font->_left);
+		}
+		if (font->_right)
+		{
+			s.push(font->_right);
+		}
+	}
+}
