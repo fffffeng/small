@@ -97,3 +97,88 @@ void testSatck()
 	cout << s.Size() << endl;
 	cout << s.Top() << endl;
 }
+//---------------------------
+//使用双向链表实现一个队列
+//---------------------------
+struct listNode
+{
+	int data;
+	listNode* next;
+	listNode* prev;
+	listNode(int x)
+	{
+		data = x;
+		next = NULL;
+		prev = NULL;
+	}
+};
+
+class myqueue
+{
+public:
+	myqueue()
+		:head(NULL)
+		, tail(NULL)
+	{}
+	void Push(int x)
+	{
+		listNode* node = new listNode(x);
+		if (head == NULL)//第一次插入
+		{
+			head = node;
+			tail = node;
+		}
+		else 
+		{
+			node->prev = tail;
+			tail->next = node;
+			tail = node;
+		}
+	}
+	void Pop()
+	{
+		if (head == NULL)
+		{
+			cout << "error:the queue is NULL" << endl;
+			return;
+		}
+		if (head->next == NULL)
+		{
+			delete(head);
+			head = NULL;
+			tail = NULL;
+		}
+		else
+		{
+			head = head->next;
+			delete(head->prev);
+			head->prev = NULL;
+		}
+	}
+	int Top()
+	{
+		if (head == NULL)
+		{
+			cout << "error:the queue is NULL" << endl;
+			return;
+		}
+		else
+			return head->data;
+	}
+private:
+	listNode* head;
+	listNode* tail;
+};
+
+int main()
+{
+	myqueue q;
+	q.Push(1);
+	q.Push(2);
+	q.Push(3);
+	q.Pop();
+	q.Pop();
+	q.Pop();
+	system("pause");
+	return 0;
+}
