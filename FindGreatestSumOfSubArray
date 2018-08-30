@@ -1,0 +1,54 @@
+#include<stdio.h>
+#include<vector>
+#include<iostream>
+
+using namespace std;
+//解法一：
+int fun(const vector<int>& v)
+{
+	int max_sum = 0;
+	int sum = 0;
+	for (int i = 0; i < v.size(); ++i)
+	{
+		if (sum < 0)
+			sum = v[i];
+		else
+		{
+			sum += v[i];
+		}
+		if (sum > max_sum)
+			max_sum = sum;
+	}
+	return max_sum;
+}
+//解法二：动态规划
+int fun2(const vector<int>& v)
+{
+	int maxsum;
+	for (int i = 0; i < v.size(); ++i)
+	{
+		if (i == 0 || maxsum < 0)
+			maxsum = v[i];
+		else
+			maxsum += v[i];
+	}
+	return maxsum;
+}
+int main()
+{
+	vector<int> v;
+	int n = 0;
+	int data = 0;
+	int sum = 0;
+	cin >> n;
+	v.resize(n);
+	for (int i = 0; i < n; ++i)
+	{
+		cin >> data;
+		v[i] = data;
+	}
+	sum = fun2(v);
+	cout << sum << endl;
+	system("pause");
+	return 0;
+}
