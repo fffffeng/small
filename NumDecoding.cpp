@@ -11,20 +11,21 @@ int numdecodings(const string& str)
 {
   if(str.size() < 1 || str[0]=='0')
     return 0;
-  int r1 = 1,r2 = 1;
+  //first表示加入第i个字符后的结果,
+  int first = 1,second = 1;
   for(size_t i = 1; i < str.size(); ++i)//从下标为1的位置开始
   {
     if(str[i] == '0')
-      r1 = 0;
+      first = 0;
     if((str[i-1] == '1' || str[i-1] == '2') && str[i] <='6')
     {
-      r1 = r1+r2;
-      r2 = r1-r2;
+      first += second;
+      first = first - second;
     }
     else 
-      r2 = r1;
+      second = first;
   }
-  return r1;
+  return first;
 }
 
 int main()
