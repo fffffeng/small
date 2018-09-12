@@ -1,0 +1,45 @@
+
+//求N以内的勾股数a,b,c;并且a,b,c互质
+//0<a<=b<=c<=d<=N
+
+#include<iostream>
+using namespace std;
+
+bool Check(int x, int y)
+{
+	int a = x;
+	int b = y;
+	int ret = 0;
+	while (b)
+	{
+		ret = b;
+		b = a%b;
+		a = ret;
+	}
+	if (a == 1)
+		return true;
+	return false;
+}
+
+int main()
+{
+	int N = 0;
+	int count = 0;
+	cin >> N;
+	for (int i = 1; i <= N; ++i)
+	{
+		for (int j = i; j <= N; ++j)
+		{
+			for (int k = j; k <= N; ++k)
+			{
+				if ((i*i + j*j) == k*k &&(Check(i, j)&&Check(i,k)&&Check(j,k)))
+				{
+					count++;
+				}
+			}
+		}
+	}
+	cout << count << endl;
+	//system("pause");
+	return 0;
+}
